@@ -1,0 +1,13 @@
+# The main pipeline for IMDB_Project
+resources:
+  pipelines:
+    IMDB_Project_pipeline:
+      name: IMDB_Project_pipeline
+      catalog: az_adb_simbus_training
+      schema: IMDB_Project_${bundle.target}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+
+      configuration:
+        bundle.sourcePath: ${workspace.file_path}/src
