@@ -8,6 +8,8 @@ def get_taxis(spark: SparkSession) -> DataFrame:
 # Create a new Databricks Connect session. If this fails,
 # check that you have configured Databricks Connect correctly.
 # See https://docs.databricks.com/dev-tools/databricks-connect.html.
+# See https://docs.databricks.com/dev-tools/databricks-connect.html.
+
 def get_spark() -> SparkSession:
     try:
         from databricks.connect import DatabricksSession
