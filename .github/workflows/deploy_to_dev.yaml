@@ -1,0 +1,40 @@
+name: deploy_to_dev
+
+concurrency: 1
+
+on:
+  workflow_dispatch
+
+env:
+  DATABRICKS_HOST: ${{vars.HOST}}
+  DATABRICKS_TOKEN: ${{secrets.TOKEN}}
+
+jobs:
+  deploy:
+    environment: dev
+    name: "Deploy bundle new"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        
+      - uses: databricks/setup-cli@main
+
+    ##  - run: |
+    ##      databricks auth login --host ${{ vars.DATABRICKS_HOST }}
+    ##
+
+      - run: |
+          databricks bundle validate
+        env:
+          DATABRICKS_HOST: ${{vars.HOST}}
+          DATABRICKS_TOKEN: ${{secrets.TOKEN}}
+          DATABRICKS_BUNDLE_ENV: dev
+
+      - run: |
+          databricks bundle deploy
+        env:
+          DATABRICKS_HOST: ${{vars.HOST}}
+          DATABRICKS_TOKEN: ${{secrets.TOKEN}}
+          DATABRICKS_BUNDLE_ENV: dev
+         
